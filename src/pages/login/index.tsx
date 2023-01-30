@@ -1,12 +1,12 @@
-import React from 'react';
-import './Login.css';
+import React from 'react'
+import './Login.css'
 
 const Login = () => {
-    return  (
+  return (
         <>
-            <div className="loginBorder"> 
+            <div className="loginBorder">
                 <div className='imageLeft'>
-                    <img src='http://localhost:3000/books.jpg'></img>
+                    <img src='http://localhost:3000/books.jpg' alt="library image"></img>
                 </div>
                 <div className='formRight'>
                     <h3> Login </h3>
@@ -16,7 +16,7 @@ const Login = () => {
                 </div>
             </div>
         </>
-    )
+  )
 }
 
-export {Login}
+export { Login }
