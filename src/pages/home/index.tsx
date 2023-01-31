@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navigate } from 'react-router'
+import { Navigate } from 'react-router-dom'
 
 const Home = () => {
   let userParsed: string = ''
@@ -11,7 +11,9 @@ const Home = () => {
     return <Navigate to ="/login" />
   }
   return (
+    <>
         <div> Home Page </div>
+    </>
   )
 }
 
