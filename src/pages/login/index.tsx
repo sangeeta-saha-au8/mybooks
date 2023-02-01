@@ -1,5 +1,6 @@
 import React, { type ChangeEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 import './Login.css'
 
 const Login = () => {
@@ -21,12 +22,24 @@ const Login = () => {
     console.log(user)
   }
 
-  const handleLogin = (event: React.MouseEvent<HTMLButtonElement>) => {
-    // event.preventDefault()
-    // const resp = await login(user);
-    localStorage.setItem('user', 'jon')
-    navigate('/')
-  }
+  // const handleLogin = async (event: React.MouseEvent<HTMLButtonElement>): Promise<void> => {
+  //   console.log('reached login2')
+  //   event.preventDefault()
+  //   try {
+  //     const resp = await axios.post('/login', user)
+  //     if (resp.status === 200) {
+  //       console.log(resp)
+  //       localStorage.setItem('token', resp.data.token)
+  //       navigate('/')
+  //     } else if (resp.status === 403) {
+  //       console.log('Invalid credentials')
+  //     } else {
+  //       console.log('Error')
+  //     }
+  //   } catch (error) {
+
+  //   }
+  // }
 
   return (
         <>
@@ -56,14 +69,42 @@ const Login = () => {
                         value={user.password}
                         name="password"
                         onChange={handleChange}
-                        data-testid="password"
                         />
                     </div>
                     <button
-                        type="submit"
-                        onClick={handleLogin}
+                      type="submit"
+                      // onClick={
+                      //   () => {
+                      //     void (async () => {
+                      //       handleLogin
+                      //     })()
+                      //   }
+                      // }
+                      // onClick={
+                      //   () => {
+                      //     console.log('reached login')
+                      //     void handleLogin
+                      //   }
+                      // }
+                      // onClick = { () => handleLogin }
+                      // onClick={handleLogin}
+                      onClick={
+                        () => {
+                          console.log('enetering')
+                          void (async () => {
+                            console.log('inside async')
+                            const resp = await axios.post('/login', user)
+                            console.log('resp is', user)
+                            if (resp.status === 200) {
+                              console.log(resp)
+                              localStorage.setItem('token', resp.data.token)
+                              navigate('/')
+                            }
+                          })()
+                        }
+                      }
                     >
-                        Login
+                        Logon
                     </button>
                 </div>
             </div>
