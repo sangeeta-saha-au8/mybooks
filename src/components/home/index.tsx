@@ -1,55 +1,54 @@
-import React from 'react'
+import React, { type ChangeEvent, useState, useEffect } from 'react'
+import { filterMembers, listMembers } from '../../services/result.services'
 import './Home.css'
 
-const users = [
-  {
-    cardNo: 145,
-    firstName: 'Amit',
-    lastName: 'Kumar',
-    address: '123, Kamanhalli Road',
-    phone: '8765554332',
-    books: [123, 23],
-    createdAt: '2021-07-28 01:39:28'
-  },
-  {
-    cardNo: 147,
-    firstName: 'Biren',
-    lastName: 'C',
-    address: 'BVG Circle',
-    phone: '8765554332',
-    books: [181],
-    createdAt: '2021-07-28 01:39:28'
-  },
-  {
-    cardNo: 150,
-    firstName: 'Shriya',
-    lastName: 'Bhat',
-    address: '14, Royal Residency',
-    phone: '8765554332',
-    books: [],
-    createdAt: '2021-07-28 01:39:28'
-  },
-  {
-    cardNo: 155,
-    firstName: 'Meena',
-    lastName: 'Joseph',
-    address: 'Rose Apartments',
-    phone: '8765554332',
-    books: [14],
-    createdAt: '2021-07-28 01:39:28'
-  },
-  {
-    cardNo: 160,
-    firstName: 'Uday',
-    lastName: 'Joshey',
-    address: 'BVG Circle',
-    phone: '8765554332',
-    books: [198],
-    createdAt: '2021-07-28 01:39:28'
-  }
-]
+interface IMember {
+  cardNo: number
+  firstName: string
+  lastName: string
+  address: string
+  phone: string
+  books: number[]
+  createdAt: string
+}
 
 const HomeComponent = () => {
+  const [members, setMembers] = useState<IMember[]>([])
+  const [searchStr, setSearchStr] = useState('')
+
+  const getListMembers = () => {    
+    void (async () => {      
+      const resp = await listMembers()      
+      if (resp.status === 200) {
+        setMembers(resp.data)
+      } else {
+        console.log('Error in fetching members')
+      }
+    })()
+  }
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target as HTMLInputElement
+    setSearchStr(value)    
+  }
+
+  const handleSearch = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()    
+    void (async () => {      
+      const query = encodeURIComponent(searchStr)
+      const resp = await filterMembers(query)      
+      if (resp.status === 200) {
+        setMembers(resp.data)
+      } else {
+        console.log('Error in fetching members')
+      }
+    })()
+  }
+
+  useEffect(() => {
+    getListMembers()
+  }, [searchStr])
+
   return (
     <>
       <div className='pageWrapper'>
@@ -58,11 +57,12 @@ const HomeComponent = () => {
           <input className='searchText'
             id="search"
             type="text"
-            // value={user.password}
+            value={searchStr}
             name="search"
+            onChange={handleChange}
           />
           <span>
-            <button className='search'> Search </button>
+            <button className='search' onClick={handleSearch}> Search </button>
           </span>
       </div>
       <div className='tableWrapper'>
@@ -77,7 +77,7 @@ const HomeComponent = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user, index) => (
+            {members.map((user, index) => (
               <tr className='userRow' key={user.cardNo}>
                 <td>{index + 1}</td>
                 <td>{user.cardNo}</td>
