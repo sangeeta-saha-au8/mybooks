@@ -16,31 +16,32 @@ const HomeComponent = () => {
   const [members, setMembers] = useState<IMember[]>([])
   const [searchStr, setSearchStr] = useState('')
 
-  const getListMembers = () => {    
-    void (async () => {      
-      const resp = await listMembers()      
+  const getListMembers = () => {
+    void (async () => {
+      const resp = await listMembers()
+      console.log(resp)
       if (resp.status === 200) {
         setMembers(resp.data)
       } else {
-        console.log('Error in fetching members')
+        alert('Error in fetching members')
       }
     })()
   }
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target as HTMLInputElement
-    setSearchStr(value)    
+    setSearchStr(value)
   }
 
   const handleSearch = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault()    
-    void (async () => {      
+    event.preventDefault()
+    void (async () => {
       const query = encodeURIComponent(searchStr)
-      const resp = await filterMembers(query)      
+      const resp = await filterMembers(query)
       if (resp.status === 200) {
         setMembers(resp.data)
       } else {
-        console.log('Error in fetching members')
+        alert('Error in fetching members')
       }
     })()
   }

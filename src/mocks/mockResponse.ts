@@ -12,7 +12,7 @@ interface ILoginResponseBody {
 
 const worker = setupWorker(
   rest.post<ILoginRequestBody, ILoginResponseBody>('api/login', (req, res, ctx) => {
-    const { email, password } = req.body    
+    const { email, password } = req.body
     const user = { email, password }
 
     switch (user.email + user.password) {
@@ -27,7 +27,7 @@ const worker = setupWorker(
 
       default: {
         return res(
-          ctx.status(403),
+          ctx.status(402),
           ctx.json({
             token: null
           })
@@ -42,8 +42,8 @@ const worker = setupWorker(
       ctx.json([...members])
     )
   }),
-  rest.get('/api/member/filter', (req, res, ctx) => {    
-    const filterBy = req.url.searchParams.get('query')   
+  rest.get('/api/member/filter', (req, res, ctx) => {
+    const filterBy = req.url.searchParams.get('query')
 
     switch (filterBy) {
       case 'amit': {

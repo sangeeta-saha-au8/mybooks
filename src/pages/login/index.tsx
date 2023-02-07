@@ -10,6 +10,7 @@ const Login = () => {
   }
 
   const [user, setUser] = useState<IUser>({ email: '', password: '' })
+  const [errorMsg, setErrorMsg] = useState('')
 
   const navigate = useNavigate()
 
@@ -27,13 +28,15 @@ const Login = () => {
     void (async () => {
       console.log('inside async')
       const resp = await login(user)
-      console.log('resp is', user)
+      console.log('resp is', resp)
       if (resp.status === 200) {
-        // if (resp.status === 200) {
-        console.log(resp)
         localStorage.setItem('token', resp.data.token)
         navigate('/')
-        // }
+      } else if (resp.status !== 500) {
+        console.log('entered else')
+        setErrorMsg('Invalid Credentials')
+      } else {
+        alert('Error in logging in')
       }
     })()
   }
@@ -58,7 +61,6 @@ const Login = () => {
                         />
                     </div>
                     <div className='inputRow'>
-
                         <input
                         id="pass"
                         type="password"
@@ -73,6 +75,9 @@ const Login = () => {
                     >
                       Login
                     </button>
+                    <div className='inputRow'>
+                      {errorMsg}
+                    </div>
                 </div>
             </div>
         </>
