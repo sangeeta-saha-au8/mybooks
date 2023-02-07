@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { type ReactElement } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Header.css'
 
-const Header = () => {
+const Header = (): ReactElement => {
   const navigate = useNavigate()
-  const handleLogOut = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleLogOut = (event: React.MouseEvent<HTMLButtonElement>): void => {
     localStorage.setItem('token', '')
     navigate('/login')
   }
