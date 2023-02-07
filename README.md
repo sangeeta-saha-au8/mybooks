@@ -1,10 +1,14 @@
-# MyBooks App (Library Admin)
+# MyBooks App
 
 Sample Library Admin application for Desktops. Login with credentials admin@gmail.com/simple.
 Home page displays the list of members. 
 
 
 We can search for members by typing the first name. Eg: Typing 'amit', 'shriya', 'biren' will display that member's record.
+
+# Todo
+
+Add details page for each member. Each member should be able to return books and issue new book. 
 
 ## Prerequisites
 
