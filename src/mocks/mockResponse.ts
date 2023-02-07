@@ -102,6 +102,6 @@ const worker = setupWorker(
   })
 )
 
-worker.start()
+void worker.start()
   .catch(err => { console.log(err) })
   .then(() => { console.log('this will succeed') })

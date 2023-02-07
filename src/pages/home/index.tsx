@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { type ReactElement } from 'react'
 import { Navigate } from 'react-router-dom'
 import { Header } from '../../components/header'
 import { HomeComponent } from '../../components/home'
 
-const Home = () => {
+const Home = (): ReactElement => {
   let userParsed: string = ''
   const user: (string | null) = localStorage.getItem('token')
   if (typeof (user) === 'string') {
