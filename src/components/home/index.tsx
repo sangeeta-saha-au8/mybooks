@@ -1,4 +1,4 @@
-import React, { type ChangeEvent, useState, useEffect } from 'react'
+import React, { type ChangeEvent, type ReactElement, useState, useEffect } from 'react'
 import { filterMembers, listMembers } from '../../services/result.services'
 import './Home.css'
 
@@ -12,14 +12,13 @@ interface IMember {
   createdAt: string
 }
 
-const HomeComponent = () => {
+const HomeComponent = (): ReactElement => {
   const [members, setMembers] = useState<IMember[]>([])
   const [searchStr, setSearchStr] = useState('')
 
-  const getListMembers = () => {
+  const getListMembers = (): void => {
     void (async () => {
       const resp = await listMembers()
-      console.log(resp)
       if (resp.status === 200) {
         setMembers(resp.data)
       } else {
@@ -28,12 +27,12 @@ const HomeComponent = () => {
     })()
   }
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const { value } = event.target as HTMLInputElement
     setSearchStr(value)
   }
 
-  const handleSearch = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleSearch = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault()
     void (async () => {
       const query = encodeURIComponent(searchStr)
@@ -74,7 +73,7 @@ const HomeComponent = () => {
               <th> Card No. </th>
               <th> Name </th>
               <th> Phone </th>
-              <th> Action </th>
+              <th> Details </th>
             </tr>
           </thead>
           <tbody>
@@ -84,7 +83,11 @@ const HomeComponent = () => {
                 <td>{user.cardNo}</td>
                 <td>{`${user.firstName} ${user.lastName}`}</td>
                 <td>{user.phone}</td>
-                <td>action</td>
+                <td>
+                  <button className='detail'>
+                    <img src='http://localhost:3000/detail.svg' alt="detail icon" ></img>
+                  </button>
+                </td>
               </tr>
             ))
             }

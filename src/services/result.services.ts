@@ -1,4 +1,4 @@
-import axios, { type AxiosResponse } from 'axios'
+import axios from 'axios'
 
 interface IUser {
   email: string
@@ -34,8 +34,7 @@ export const login = async (payload: IUser): Promise<ILoginResponse> => {
     const resp = await axios.post('/api/login', payload)
     return { status: resp.status, data: resp.data }
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.log('error message: ', error.message)
+    if (axios.isAxiosError(error)) {      
       if (error.response != null) { return { status: error.response.status, data: error.response.data } }
     }
   }
@@ -47,25 +46,19 @@ export const listMembers = async (): Promise<IListMemberResponse> => {
     const resp = await axios.get('/api/member/list')
     return { status: resp.status, data: resp.data }
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.log('error message: ', error.message)
+    if (axios.isAxiosError(error)) {      
       if (error.response != null) { return { status: error.response.status, data: error.response.data } }
     }
   }
   return { status: 500, data: [] }
 }
 
-// export const filterMembers = async (payload: string): Promise<AxiosResponse> => {
-//   return await axios.get(`/api/member/filter?query=${payload}`)
-// }
-
 export const filterMembers = async (payload: string): Promise<IListMemberResponse> => {
   try {
     const resp = await axios.get(`/api/member/filter?query=${payload}`)
     return { status: resp.status, data: resp.data }
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      console.log('error message: ', error.message)
+    if (axios.isAxiosError(error)) {      
       if (error.response != null) { return { status: error.response.status, data: error.response.data } }
     }
   }

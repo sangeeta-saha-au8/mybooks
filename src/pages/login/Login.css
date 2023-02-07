@@ -17,8 +17,7 @@ img{
 }
 
 .formRight{    
-    width: 38%;  
-    border: 1px solid black;  
+    width: 38%;      
 }
 
 h3 {
@@ -29,6 +28,10 @@ h3 {
 p,button{
     margin-top: 20px;
     margin-left: 20%;    
+}
+
+.loginButton {
+    padding: 10px;
 }
 
 .inputRow {

@@ -13,6 +13,11 @@
     border-radius: 10px;
 }
 
+.detail {
+  height: 30px;
+  width: 30px;
+}
+
 .searchWrapper{    
     border: 1px soild black;
 }
@@ -32,8 +37,7 @@
     margin: 30px 100px 0 100px ;
 }
 
-table{
-    
+table{    
     font-size: 16px;
 }
 
@@ -50,9 +54,13 @@ th {
   padding: 10px 0 10px 0;
 }
 
+.detail {
+  margin-left: 20px;
+  margin-top: 5px;
+}
 
-td {
-  
+
+td {  
   border-radius: 10px;
   box-sizing: border-box;
   padding-top: 1.5rem;

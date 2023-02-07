@@ -1,9 +1,9 @@
-import React, { type ChangeEvent, useState } from 'react'
+import React, { type ChangeEvent, type ReactElement, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { login } from '../../services/result.services'
 import './Login.css'
 
-const Login = () => {
+const Login = (): ReactElement => {
   interface IUser {
     email: string
     password: string
@@ -14,29 +14,25 @@ const Login = () => {
 
   const navigate = useNavigate()
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = event.target as HTMLInputElement
     setUser((prevState) => ({
       ...prevState,
       [name]: value
     }))
-    console.log(user)
   }
 
-  const handleLogin = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleLogin = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault()
     void (async () => {
-      console.log('inside async')
       const resp = await login(user)
-      console.log('resp is', resp)
       if (resp.status === 200) {
         localStorage.setItem('token', resp.data.token)
         navigate('/')
       } else if (resp.status !== 500) {
-        console.log('entered else')
         setErrorMsg('Invalid Credentials')
       } else {
-        alert('Error in logging in')
+        alert('Error Logging in')
       }
     })()
   }
@@ -71,6 +67,7 @@ const Login = () => {
                         />
                     </div>
                     <button
+                      className='loginButton'
                       onClick={handleLogin}
                     >
                       Login
