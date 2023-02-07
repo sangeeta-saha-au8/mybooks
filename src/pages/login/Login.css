@@ -1,0 +1,49 @@
+.loginBorder{
+    display: flex;
+    flex-wrap: wrap;
+    height: 100vh;
+}
+
+.imageLeft{
+    display: flex;
+    width: 60%;
+    justify-content: center;
+    align-items: center;
+}
+
+img{
+    height: 100%;
+    width: 100%;
+}
+
+.formRight{    
+    width: 38%;      
+}
+
+h3 {
+    margin-top: 50%;
+    margin-left: 20%;
+}
+
+p,button{
+    margin-top: 20px;
+    margin-left: 20%;    
+}
+
+.loginButton {
+    padding: 10px;
+}
+
+.inputRow {
+    border: none;
+    background: none;
+    width: 100%;
+    margin-left: 20%;
+    margin-top: 2%;
+    
+}
+
+input {    
+    
+    padding: 10px;
+}
